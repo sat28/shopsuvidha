@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <!-- Topbar Search -->
+    <form class="mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="post" action="{% url 'display_listing' %}">
+    {% csrf_token %}
+        <div class="input-group">
+            <input type="text" class="form-control bg-light small" name="address" placeholder="Enter a location name ..." aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <input type="submit" class="btn-primary form-control" value="&#xf0f6" />
+            </div>
+        </div>
+    </form>
+    <br />
+    {% for business in returned_businesses %}
+    <div class="col-xl-12 col-md-12 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col-md-3">
+                        <img src="{{ business.image.url }}" width="200" height="100" />
+                    </div>
+                    <div class="col md-9">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase">{{ business.business_name }}</div>
+                            <hr />
+                            <div class="text-xs font-weight-bold text-uppercase">Street Address - {{ business.street_address }}</div>
+                            <div class="text-xs font-weight-bold text-uppercase">City - {{ business.city }}</div>
+                            <div class="text-xs font-weight-bold text-uppercase">Opening Time - {{ business.opening_time }}</div>
+                            <div class="text-xs font-weight-bold text-uppercase">Closing Time - {{ business.closing_time }}</div>
+                            <div class="text-xs font-weight-bold text-uppercase">Distance in kms - {{ business.distance }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}
